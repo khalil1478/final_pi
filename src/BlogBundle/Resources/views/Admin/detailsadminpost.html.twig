@@ -1,0 +1,150 @@
+{% extends '@Blog/Admin/dashbord.html.twig' %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block content %}
+<body class="bg-white">
+
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+
+
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+
+
+               <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"> détails post </h3>
+                         
+                        </div>
+
+<!-- breadcrumb start-->
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+                    <div class="feature-img">
+                        <img class="img-fluid" style="width: 100%; height: 300px;"  src="{{ asset('uplods/post/' ~ photo) }}" alt="">
+                    </div>
+                    <div class="blog_details">
+                        <h2>{{ title }}</h2>
+
+                        <p class="excert">
+                            {{ description|raw }}
+                            </p>
+                            {{ rating|rating }}
+                        </p>
+                        <ul class="blog-info-link mt-3 mb-4">
+                            <li><a href="#"><i class="far fa-user"></i> {{ creator }}</a></li>
+                           
+                            <li><a href="#"><i class="date"></i> {{date|date('Y-m-d') }}</a></li>
+                        </ul>
+
+
+                    </div>
+                    
+                </div>
+
+            
+
+
+
+</div>
+
+            <div class="comment-form" >
+                   
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <form  action="{{ path('addcommentadmin') }}" class="form-contact comment_form"   method="POST" id="commentForm">
+                        <input type="hidden" name="post_id" value= "{{ id }}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                              <textarea class="form-control w-100" name="comment" id="comment" cols="15" rows="9"
+                                        placeholder="Write Comment"></textarea>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group mt-3">
+                            <input 
+                            
+                            type="submit" class="btn btn-block btn-info btn-flat" value="ajouter un commentaire">
+                        </div>
+                    </form>
+
+                {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                    <br> <br>
+
+                    <div class  = "alert alert-primary" role = "alert">
+                        vous devez créer un compte avant d'ajouter un commentaire
+                        <a href = "{{ path('fos_user_registration_register')}}">céer un compte</a>
+                        ou bien vous  devez
+                        <a href = "{{ path('fos_user_security_login')}}" >s'authentifier</a>
+                    </div>
+
+                {% endif %}
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                   
+                                   
+                                </div>
+                            </div>
+                           
+                        
+                           
+                        </form>
+                    </aside>
+  
+                                        
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area end =================-->
+</body>
+
+{% endblock %}

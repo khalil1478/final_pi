@@ -1,0 +1,329 @@
+{% extends '@Blog/Default/layout.html.twig' %}
+
+
+
+
+
+{% block banner %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<body class="bg-white">
+<!--================Home Banner Area =================-->
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <p>Home / blog</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb start-->
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+
+
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+{% for message in app.flashes('warning1') %}
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
+
+
+<!--================Blog Area =================-->
+<section class="blog_area section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="blog_left_sidebar">
+                    <article class="blog_item">
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+                        <script type="text/javascript">
+
+                            $(document).ready(function () {
+                                $(() => {
+                                    var i;
+                                    const $elements = $('[data-entry-id]');
+                                    const $entryids = $.map($elements, item => $(item).data('entryId'))
+
+                                    i = $entryids;
+                                    var j;
+                                    for (j = 0; j < offre.length; j++) {
+                                        $.ajax({
+                                            url: "{{ path('count') }}",
+                                            type: 'post',
+                                            data: {'id': i[j]},
+                                            dataType: "json",
+                                            success: function (data) {
+                                                document.getElementById(data.id).innerText = data.number;
+                                            }
+                                        });
+                                    }
+                                });  });
+
+
+                        </script>
+
+
+
+
+                        {% for posts in posts %}
+                        <div class="blog_item_img">
+                            <img class="card-img rounded-0" style="width: 100%; height: 300px;" src="{{ asset('uplods/post/' ~ posts.photo) }}" alt="">
+                            <a href="#" class="blog_item_date">
+                                <h3>{{ posts.postdate|date('d/m/Y') }} </h3>
+
+
+                            </a>
+                        </div>
+
+                        <div class="blog_details">
+                            <a class="d-inline-block" href="single-blog.html">
+                                <h2>{{ posts.title }}</h2>
+                            </a>
+                            <p > {{ posts.description|raw }}</p>
+                            <ul class="blog-info-link">
+                                <li><a href="#"><i class="far fa-user"></i> {{ posts.creator  }}</a></li>
+                                <li><a href="#"><i class="far fa-comments"></i> {{  posts.comments.count }} comments</a></li>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if(posts.creator.id== app.user.id) %}
+
+
+
+
+
+                                    <!-- Button trigger modal -->
+                                    <li><a  class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="far fa-comments"></i>   delete</a></li>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel"><br> <br> <br> Alert confirmation  <br></h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <br>  est ce que vous etes sur de supprimer post
+                                                    <br>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <a    href="{{ path('deletepost',{'id': posts.id}) }}">  <button type="button"  class="btn btn-primary">supprimer</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                  
+                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <li><a  class="btn btn-outline-warning" href="{{ path('updatepost',{'id': posts.id}) }}"><i class="far fa-comments"></i> modifier</a></li>
+                                <li><a  class="btn btn-outline-info" href="{{ path('detailedpost',{'id': posts.id}) }}"><i class="far fa-comments"></i> détails post</a></li>
+                                {% else %}
+
+                                    <li><a class="btn btn-outline-info" href="{{ path('detailedpost',{'id': posts.id}) }}"><i class="far fa-comments"></i> détails post</a></li>
+                                {% endif %}
+
+                                {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                    <li><a class="btn btn-outline-info" href="{{ path('detailedpost',{'id': posts.id}) }}"><i class="far fa-comments"></i> détails post</a></li>
+                                {% endif %}
+
+
+
+
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </article>
+                       <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                           <div class="navigation">
+                               {{ knp_pagination_render(posts) }}
+                            </div>
+                        </ul>
+                       </nav>
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+
+                    <aside class="single_sidebar_widget search_widget">
+                    <form method="post" action="{{ path('ajax_search')}}">
+                                                <div class="form-group">
+                                <div class="input-group mb-3">
+
+
+                                    <input type="text"  name="title" class="form-control" placeholder=' CHERCHER SELON TITRE'
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btn" ><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+
+                     <form method="post" action="{{ path('ajax_search1')}}">
+                                                <div class="form-group">
+                                <div class="input-group mb-3">
+
+
+                                    <input type="text"  name="description" class="form-control" placeholder=' CHERCHER SELON DESCRIPTION'
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btn" ><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+
+
+
+                    <form method="post" action="{{ path('ajax_search2')}}">
+                                                <div class="form-group">
+                                <div class="input-group mb-3">
+
+
+                                    <input type="text"  name="date" class="form-control" placeholder=' CHERCHER SELON DATE'
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Search Keyword'">
+                                    <div class="input-group-append">
+                                        <button class="btn" ><i class="ti-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+
+
+
+
+                            <a href="{{path('addpost')}}" class="button rounded-0 secondry-bg text-white w-100 btn_1">
+                                ajouter un blog</a>
+
+
+                    </aside>
+
+
+
+                    <aside class="single_sidebar_widget popular_post_widget">
+                    
+                        <h3 class="widget_title">Recent Post</h3>
+
+
+                        {% for postsss in postsss|slice(0,5) %}
+
+                            <div class="media post_item">
+                                <img class="card-img rounded-0" style="width: 80px; height: 80px;" src="{{ asset('uplods/post/' ~ postsss.photo) }}" alt="">
+
+                                <div class="media-body">
+                                    <a href="">
+
+
+                                    </a>
+                                    <h3>{{ postsss.postdate|date('d/m/Y ') }} </h3>
+
+
+                                </div>
+                            </div>
+
+                        {% endfor %}
+
+                    </aside>
+
+
+
+                    <aside class="single_sidebar_widget instagram_feeds">
+                        <h4 class="widget_title">Pictures Post</h4>
+                        <ul class="instagram_row flex-wrap">
+                            {% for postsss in postsss|slice(0,6) %}
+                                <li>
+                                    <img class="card-img rounded-0" style="width: 80px; height: 80px;" src="{{ asset('uplods/post/' ~ postsss.photo) }}" alt="">
+                                </li>
+
+                            {% endfor %}
+                        </ul>
+                    </aside>
+
+                     
+        
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area =================-->
+
+
+</body>
+
+{% endblock %}
+

@@ -1,0 +1,122 @@
+{% extends '@Blog/Default/layout.html.twig' %}
+
+
+{% block banner %}
+
+{% endblock %}
+
+
+
+{% block content %}
+<body class="bg-white">
+
+
+
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <p>Home/ blog/ ajouter un blog</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<section class="tracking_box_area section_padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-12">
+                <div class="tracking_box_inner">
+                   
+                    {{ form_start(Form,{'attr':{'class':'row tracking_form','novalidate':'novalidate'}}) }}
+                     <div class="col-md-12 form-group">
+                      {{ form_errors(Form.title) }}
+         Titre       {{ form_widget(Form.title,{'attr':{'type':'text','class':'form-control','placeholder':'saisir un titre'}}) }}
+
+                        </div>
+                        <div class="col-md-12 form-group">
+                         {{ form_errors(Form.description)}}
+          Description       {{ form_widget(Form.description,{'attr':{'type':'textarea','class':'form-control','placeholder':'saisir description'}}) }}
+                        </div>
+                         {{ form_errors(Form.photo)}}
+                        <div class="col-md-12 form-group">
+      Photo    {{ form_widget(Form.photo,{'attr':{'type':'text','class':'form-control','placeholder':'saisir photo'}}) }}
+                        </div>
+
+
+                   
+                    
+
+
+                         
+
+                        <div class="col-md-12 form-group">
+             {{ form_widget(Form.Submit,{'attr':{'type':'text','class':'btn_3','placeholder':'ajouter un blog'}}) }}
+                        </div>
+                    {{ form_end(Form) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+<br> <br>
+
+<div class="alert alert-primary" role="alert">
+    vous devez créer un compte avant d'ajouter un post
+    <a href="{{ path('fos_user_registration_register')}}">céer un compte</a>
+    ou bien vous  devez s'authentifier
+    <a href="{{ path('fos_user_security_login')}}" >s'authentifier</a>
+</div>
+
+{% endif %}
+
+</body>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

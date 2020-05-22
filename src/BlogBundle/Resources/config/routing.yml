@@ -1,0 +1,148 @@
+
+
+aa:
+    path:     /
+    defaults: { _controller: BlogBundle:Blog:home }
+
+
+
+
+home:
+    path:     /home
+    defaults: { _controller: BlogBundle:Blog:home }
+
+    #login:
+# path:     /login
+    #  defaults: { _controller: BlogBundle:Blog:login }
+
+
+#register:
+    #   path:     /register
+    #  defaults: { _controller: BlogBundle:Blog:register }
+
+
+
+
+count:
+    path:     /Count
+    defaults: { _controller: BlogBundle:Blog:Count }
+
+acceuilblog:
+    path:     /acceuilblog
+    defaults: { _controller: BlogBundle:Blog:acceuilblog }
+
+
+
+
+addpost:
+    path:     /addpost
+    defaults: { _controller: BlogBundle:Blog:addpost }
+
+
+deletepost:
+    path:     /deletepost/{id}
+    defaults: { _controller: BlogBundle:Blog:deletepost }
+
+updatepost:
+    path:     /updatepost/{id}
+    defaults: { _controller: BlogBundle:Blog:updatepost }
+
+detailedpost:
+    path:     /detailedpost/{id}
+    defaults: { _controller: BlogBundle:Blog:detailedpost }
+
+addcomment:
+    path:     /addcomment
+    defaults: { _controller: BlogBundle:Blog:addcomment }
+
+deletecomment:
+    path:     /deletecomment/{id}
+    defaults: { _controller: BlogBundle:Blog:deletecomment }
+
+updatecomment:
+    path:     /updatecomment/{id}
+    defaults: { _controller: BlogBundle:Blog:updatecomment }
+
+recherche:
+    path:     /recherche/{titled}
+    defaults: { _controller: BlogBundle:Blog:searchtitle }
+
+ajax_search:
+    path:     /searchtitre
+    defaults: { _controller: BlogBundle:Blog:searchtitre }
+ajax_search1:
+    path:     /searchdescription
+    defaults: { _controller: BlogBundle:Blog:searchdescription }
+ajax_search2:
+    path:     /searchdate
+    defaults: { _controller: BlogBundle:Blog:searchdate }
+
+
+
+comm_like:
+    path: /like/{id}
+    defaults: { _controller: BlogBundle:Blog:like }
+
+comm_dislike:
+    path: /dislike/{id}
+    defaults: { _controller: BlogBundle:Blog:dislike }
+
+
+
+
+
+
+
+
+
+
+
+admin:
+    path:     /administrateur
+    defaults: { _controller: BlogBundle:Blog:admin }
+
+
+adminlistpost:
+    path:     /adminlistpost
+    defaults: { _controller: BlogBundle:Blog:listpostadmin }
+
+adminlistcomment:
+    path:     /adminlistcomment
+    defaults: { _controller: BlogBundle:Blog:adminlistcomment }
+
+deletepostadmin:
+    path:     /deletepostadmin/{id}
+    defaults: { _controller: BlogBundle:Blog:deletepostadmin }
+
+adminlistfosuser:
+    path:     /adminlistfosuser
+    defaults: { _controller: BlogBundle:Blog:adminlistfosuser }
+
+deletefosuseradmin:
+    path:     /deletefosuseradmin/{id}
+    defaults: { _controller: BlogBundle:Blog:deletefosuseradmin }
+
+addpostadmin:
+    path:     /addpostadmin
+    defaults: { _controller: BlogBundle:Blog:addpostadmin }
+
+detailsadminpost:
+    path:     /detailsadminpost/{id}
+    defaults: { _controller: BlogBundle:Blog:detailsadminpost }
+
+addcommentadmin:
+    path:     /addcommentadmin
+    defaults: { _controller: BlogBundle:Blog:addcommentadmin }
+
+deletecommentadmin:
+    path:     /deletecommentadmin/{id}
+    defaults: { _controller: BlogBundle:Blog:deletecommentadmin }
+
+detailsadminuser:
+    path:     /detailsadminuser/{id}
+    defaults: { _controller: BlogBundle:Blog:detailsadminuser }
+
+
+statistique:
+     path:     /statistique
+     defaults: { _controller: BlogBundle:Blog:statistique }

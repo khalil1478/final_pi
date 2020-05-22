@@ -1,0 +1,249 @@
+{% extends '@Blog/Default/layout.html.twig' %}
+
+
+
+
+
+{% block banner %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block content %}
+<body class="bg-white">
+
+
+
+<!--================Home Banner Area =================-->
+<!-- breadcrumb start-->
+<section class="breadcrumb breadcrumb_bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="breadcrumb_iner">
+                    <div class="breadcrumb_iner_item">
+                        <p>Home /  détails bolg</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb start-->
+{% for message in app.flashes('info') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+<!--================Blog Area =================-->
+<section class="blog_area single-post-area section_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+                    <div class="feature-img">
+                        <img class="img-fluid" style="width: 100%; height: 300px;"  src="{{ asset('uplods/post/' ~ photo) }}" alt="">
+                    </div>
+                    <div class="blog_details">
+                        <h2>{{ title }}</h2>
+
+                        <p class="excert">
+                            {{ posts.description|raw }}
+                            {{ rating|rating }}
+                        </p>
+                        <ul class="blog-info-link mt-3 mb-4">
+                            <li><a href="#"><i class="far fa-user"></i> {{ creator }}</a></li>
+                            <li><a href="#"><i class="far fa-comments"></i>  {{  posts.comments.count }} Comments</a></li>
+                            <li><a href="#"><i class="date"></i> {{date|date('Y-m-d') }}</a></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+                <div class="navigation-top">
+                    <div class="d-sm-flex justify-content-between text-center">
+                        <p class="like-info"><span class="align-middle"><i class="far fa-heart"></i></span> Lily and 4
+                            people like this</p>
+                        <div class="col-sm-4 text-center my-2 my-sm-0">
+                            <!-- <p class="comment-count"><span class="align-middle"><i class="far fa-comment"></i></span> 06 Comments</p> -->
+                        </div>
+                        <ul class="social-icons">
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="comments-area">
+                    <h4>  {{  posts.comments.count }} Comments</h4>
+
+                    {% for comment in posts.comments %}
+                    <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+
+                                </div>
+                                <div class="desc">
+                                    <div class="comment">
+                                      {{ comment.getContent() }}
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                        
+                                            <h5>
+                                                <a href="#">{{ comment.user  }}</a>
+                                            </h5>
+
+                                            <p class="date">{{ comment.getPostedAt()|date('Y-m-d') }} </p>
+
+
+                                        </div>
+
+                                        <div class="d-flex align-items-center">
+                                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                                {% if(comment.user.id== app.user.id) %}
+                                                    <a  class="btn btn-outline-warning" href="{{ path('updatecomment',{'id': comment.id}) }}" class="btn-reply text-uppercase">modifier</a>
+
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+                                                        delete
+                                                    </button>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel"><br> <br> <br> Alert confirmation  <br></h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                               <br>  est ce que vous etes sur de supprimer le commentaire
+                                                                    <br>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <a    href="{{ path('deletecomment',{'id': comment.id}) }}" >  <button type="button"  class="btn btn-primary">supprimer</button></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                               
+                                              
+                                                    
+
+                                                {% endif %}
+
+
+
+                                                     {% if app.user %}
+                                                      {% set existe = false %}
+                                                          {% for like in comment.likes %}
+                                                              {% if like.id == app.user.id %}
+                                                                 {% set existe =true %}
+                                                              {% endif %}
+                                                         {% endfor %}
+                                                    {% endif %}
+
+                                                 {% if app.user   %}
+                                                 
+                                                       {% if existe ==false %}
+                                                     <a   class="btn btn-outline-info" class="btn-reply text-uppercase"  href="{{ path('comm_like',{'id':comment.id}) }}">j'aime</a>
+
+                                                       {% else %}
+                                                    <a   class="btn btn-outline-info" href="{{ path('comm_dislike',{'id':comment.id}) }}" class="btn-reply text-uppercase"  href="">je n'aime pas</a>
+                                                       {% endif %}
+
+
+
+                                            {% else %}
+
+
+                                                {% endif %}
+                                                {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                                                    <br>
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+            <div class="comment-form" >
+                    <h4> ajouter un commentaire</h4>
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <form  action="{{ path('addcomment') }}" class="form-contact comment_form"   method="POST" id="commentForm">
+                        <input type="hidden" name="post_id" value= "{{ id }}">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                              <textarea class="form-control w-100" name="comment" id="comment" cols="15" rows="9"
+                                        placeholder="Write Comment"></textarea>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="submit" class="btn_3 button-contactForm" value="ajouter un commentaire">
+                        </div>
+                    </form>
+
+                {% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
+                    <br> <br>
+
+                    <div class="alert alert-primary" role="alert">
+                        vous devez créer un compte avant d'ajouter un commentaire
+                        <a href="{{ path('fos_user_registration_register')}}">céer un compte</a>
+                        ou bien vous  devez
+                        <a href="{{ path('fos_user_security_login')}}" >s'authentifier</a>
+                    </div>
+
+                {% endif %}
+
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+
+                            <a href="#" class="button rounded-0 secondry-bg text-white w-100 btn_1" >
+                                ajouter un commentaire</a>
+                        </form>
+                    </aside>
+
+
+
+                 
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Blog Area end =================-->
+</body>
+
+{% endblock %}

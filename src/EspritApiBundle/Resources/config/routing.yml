@@ -1,0 +1,58 @@
+esprit_api_homepage:
+    path:     /
+    defaults: { _controller: EspritApiBundle:Default:index }
+
+
+all:
+    path:     /posts/all
+    defaults: { _controller: EspritApiBundle:Blog:all }
+
+find_post:
+    path:     /posts/find/{id}
+    defaults: { _controller: EspritApiBundle:Blog:find }
+
+create_post:
+    path:     /posts/new
+    defaults: { _controller: EspritApiBundle:Blog:new }    
+
+delete_post:
+    path:     /posts/delete/{id}
+    defaults: { _controller: EspritApiBundle:Blog:delete }
+
+    
+update_post:
+    path:     /posts/update/{id}
+    defaults: { _controller: EspritApiBundle:Blog:update }
+
+
+detailed_post:
+    path:     /detailedpost/{id}
+    defaults: { _controller: EspritApiBundle:Blog:showdetailed }
+
+
+
+add_comment:
+    path:     /addcomment/{user}/{id}/{Con}
+    defaults: { _controller: EspritApiBundle:Blog:addComment }
+
+
+
+alluser:
+    path:     /users/all
+    defaults: { _controller: EspritApiBundle:Blog:alluser }
+
+delete_user:
+    path:     /users/delete/{id}
+    defaults: { _controller: EspritApiBundle:Blog:deleteuser }
+    
+login1:
+    path:     /login1/{username}/{password}
+    defaults: { _controller: AppBundle:Default:login }
+
+registe1:
+    path:     /registe1/{email}/{username}/{password}/{role}
+    defaults: { _controller: AppBundle:Default:register }
+
+allcommentaire:
+    path:     /commentaires/all
+    defaults: { _controller: EspritApiBundle:Blog:allcommentaire }

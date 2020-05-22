@@ -1,0 +1,191 @@
+{% extends '@Blog/Default/layout.html.twig' %}
+
+
+
+
+
+{% block banner %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+    <body class="bg-white">
+    <!--================Home Banner Area =================-->
+    <!-- breadcrumb start-->
+    <section class="breadcrumb breadcrumb_bg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                        <div class="breadcrumb_iner_item">
+                            <p>Home / blog</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb start-->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area section_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar">
+
+
+
+
+                        <article class="blog_item">
+                            {% for posts in posts %}
+                                <div class="blog_item_img">
+                                    <img class="card-img rounded-0" src="{{ asset('uploads/post/' ~ posts.photo) }}" alt="">
+                                    <a href="#" class="blog_item_date">
+                                        <h3>{{ posts.postdate|date() }} </h3>
+
+                                    </a>
+                                </div>
+
+                                <div class="blog_details">
+                                    <a class="d-inline-block" href="single-blog.html">
+                                        <h2>{{ posts.title }}</h2>
+                                    </a>
+                                    <p> {{ posts.description|trim }}</p>
+                                    <ul class="blog-info-link">
+                                        <li><a href="#"><i class="far fa-user"></i> Travel, Lifestyle</a></li>
+                                        <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+                                        <li><a href="{{ path('deletepost',{'id': posts.id}) }}"><i class="far fa-comments"></i> delete</a></li>
+                                        <li><a href="{{ path('updatepost',{'id': posts.id}) }}"><i class="far fa-comments"></i> modifier</a></li>
+                                        <li><a href="{{ path('detailedpost',{'id': posts.id}) }}"><i class="far fa-comments"></i> détails post</a></li>
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </article>
+
+
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <i class="ti-angle-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li class="page-item active">
+                                    <a href="#" class="page-link">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next">
+                                        <i class="ti-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <form action="#">
+                                <div class="form-group">
+                                    <div class="input-group mb-3">
+
+
+                                        <input type="text"   name='titled' class="form-control" placeholder='Search Keyword'
+                                               onfocus="this.placeholder = ''"
+                                               onblur="this.placeholder = 'Search Keyword'">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit"><i class="ti-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="button rounded-0 primary-bg text-white w-100 btn_1"
+                                        type="submit">Search</a>
+
+                                <a href="{{path('addpost')}}" class="button rounded-0 secondry-bg text-white w-100 btn_1">
+                                    ajouter un blog</a>
+
+                            </form>
+                        </aside>
+
+
+
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title">Recent Post</h3>
+                            <div class="media post_item">
+                                <img src="{{asset('front/img/post/post_1.png')}}" alt="post">
+                                <div class="media-body">
+                                    <a href="single-blog.html">
+                                        <h3>From life was you fish...</h3>
+                                    </a>
+                                    <p>January 12, 2019</p>
+                                </div>
+                            </div>
+                            <div class="media post_item">
+                                <img src="{{asset('front/img/post/post_2.png')}}" alt="post">
+                                <div class="media-body">
+                                    <a href="single-blog.html">
+                                        <h3>The Amazing Hubble</h3>
+                                    </a>
+                                    <p>02 Hours ago</p>
+                                </div>
+                            </div>
+                            <div class="media post_item">
+                                <img src="{{asset('front/img/post/post_3.png')}}" alt="post">
+                                <div class="media-body">
+                                    <a href="single-blog.html">
+                                        <h3>Astronomy Or Astrology</h3>
+                                    </a>
+                                    <p>03 Hours ago</p>
+                                </div>
+                            </div>
+                            <div class="media post_item">
+                                <img src="{{asset('front/img/post/post_4.png')}}" alt="post">
+                                <div class="media-body">
+                                    <a href="single-blog.html">
+                                        <h3>Asteroids telescope</h3>
+                                    </a>
+                                    <p>01 Hours ago</p>
+                                </div>
+                            </div>
+                        </aside>
+
+
+
+                        <aside class="single_sidebar_widget instagram_feeds">
+                            <h4 class="widget_title">Pictures Post</h4>
+                            <ul class="instagram_row flex-wrap">
+                                <li>
+                                    <a href="#">
+                                        <img class="img-fluid" src="{{asset('front/img/post/post_5.png')}}" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <img class="img-fluid" src="{{asset('front/img/post/post_6.png')}}"alt="">
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </aside>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+
+    </body>
+
+{% endblock %}
